@@ -7,6 +7,7 @@
     <title>Audio recorder</title>
   </head>
   <body>
+    <input type="file" name="testWAV" id="testWAV">
     <audio id="player" controls></audio>
     <button id="record">Record</button>
     <button id="stop">Stop</button>
@@ -15,6 +16,7 @@
       const player = document.getElementById("player");
       const stopBtn = document.getElementById("stop");
       const recordBtn = document.getElementById("record");
+      const input = document.getElementById("testWAV");
       let shouldStop = false;
       let stopped = false;
       const downloadLink = document.getElementById("download");
@@ -38,16 +40,46 @@
           downloadLink.download = "acetest.wav";
           player.src = URL.createObjectURL(new Blob(recordedChunks));
 
-          var fileName = "acetest.wav";
-          // var file = new File([recordedChunks], 'fileName', {type: 'audio/webm'})
-          var fileReader = new FileReader();
+          var fileName = "aaaaa.wav";
 
-          new Blob(recordedChunks).arrayBuffer().then(function (buffer) {
-            console.log(buffer)
+          var fileContent = 'sample text'; // As a sample, upload a text file.
+          var file = new Blob(recordedChunks, {type: 'audio/webm'});
+          var metadata = {
+              'name': 'aaaaaaa.wav', // Filename at Google Drive
+              'mimeType': 'application/binary', // mimeType at Google Drive
+              'parents': '', // Folder ID at Google Drive
+          };
+
+          var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+          var form = new FormData();
+          form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+          // file.text().then(function (buffer) {
+            form.append('file', file);
+            // console.log(buffer)
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+            xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            xhr.responseType = 'json';
+            xhr.onload = () => {
+                console.log(xhr.response.id); // Retrieve uploaded file ID.
+            };
+            xhr.send(form);
+          // })
+
+          /* (new Blob(recordedChunks, {type: ''})).text().then(function (buffer) {
+            gapi.client.drive.files.create(buffer, {
+              'uploadType': "media"
+            }).then(function(response) {
+              console.log(response)
+            })
+          }) */
+          // var file = new File([recordedChunks], 'fileName', {type: 'audio/webm'})
+
+         /*  (new Blob(recordedChunks, {type: "audio/webm"})).text().then(function (buffer) {
             var contentType = "audio/webm";
             var metadata = {
               name: fileName,
-              mimeType: contentType,
+              // mimeType: contentType,
             };
             const boundary = "myfile";
             const delimiter = "\r\n--" + boundary + "\r\n";
@@ -77,37 +109,7 @@
               console.log(file);
             });
           });
-          fileReader.readAsArrayBuffer(new Blob(recordedChunks));
-          // var fileData = (new FileReader()).readAsBinaryString(file)
-          // console.log(fileData)
-
-          /* const file = new File(recordedChunks, 'test.wav', { type: 'audio/webm'})
-          console.log(file)
-          var fileMetadata = {
-            'name': 'test',
-            'mimeType': 'audio/webm'
-          };
-          var media = {
-            mimeType: 'audio/webm',
-            body: file
-          };
-          console.log('test')
-          gapi.client.drive.files.create({
-            resource: fileMetadata,
-            media: media,
-            fields: 'id',
-            uploadType: 'multipart',
-          }, function (err, file) {
-            if (err) {
-              // Handle error
-              console.error(err);
-            } else {
-              console.log('File Id: ', file.id);
-            }
-          }).then(function(response) {
-            console.log(response, "kdjfb")
-          }); */
-
+ */
           recordedChunks = [];
         });
 
