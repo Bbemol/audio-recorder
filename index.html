@@ -40,81 +40,31 @@
           downloadLink.download = "acetest.wav";
           player.src = URL.createObjectURL(new Blob(recordedChunks));
 
-          var fileName = "aaaaa.wav";
-
-          var fileContent = 'sample text'; // As a sample, upload a text file.
           var file = new Blob(recordedChunks, {type: 'audio/webm'});
           var metadata = {
               'name': 'aaaaaaa.wav', // Filename at Google Drive
-              'mimeType': 'application/binary', // mimeType at Google Drive
+              'mimeType': 'audio/webm', // mimeType at Google Drive
               'parents': '', // Folder ID at Google Drive
           };
 
           var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
           var form = new FormData();
           form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-          // file.text().then(function (buffer) {
-            form.append('file', file);
-            // console.log(buffer)
-            var xhr = new XMLHttpRequest();
-            xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-            xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-            xhr.responseType = 'json';
-            xhr.onload = () => {
-                console.log(xhr.response.id); // Retrieve uploaded file ID.
-            };
-            xhr.send(form);
-          // })
+          form.append('file', file);
+          var xhr = new XMLHttpRequest();
+          xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+          xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+          xhr.responseType = 'json';
+          xhr.onload = () => {
+              console.log(xhr.response.id); // Retrieve uploaded file ID.
+          };
+          xhr.send(form);
 
-          /* (new Blob(recordedChunks, {type: ''})).text().then(function (buffer) {
-            gapi.client.drive.files.create(buffer, {
-              'uploadType': "media"
-            }).then(function(response) {
-              console.log(response)
-            })
-          }) */
-          // var file = new File([recordedChunks], 'fileName', {type: 'audio/webm'})
-
-         /*  (new Blob(recordedChunks, {type: "audio/webm"})).text().then(function (buffer) {
-            var contentType = "audio/webm";
-            var metadata = {
-              name: fileName,
-              // mimeType: contentType,
-            };
-            const boundary = "myfile";
-            const delimiter = "\r\n--" + boundary + "\r\n";
-            const close_delim = "\r\n--" + boundary + "--";
-            var multipartRequestBody =
-              delimiter +
-              "Content-Type: application/json; charset=UTF-8\r\n\r\n" +
-              JSON.stringify(metadata) +
-              delimiter +
-              "Content-Type: " +
-              contentType +
-              "\r\n\r\n" +
-              buffer +
-              "\r\n" +
-              close_delim;
-
-            var request = window.gapi.client.request({
-              path: "https://www.googleapis.com/upload/drive/v3/files",
-              method: "POST",
-              params: { uploadType: "multipart" },
-              headers: {
-                "Content-Type": "multipart/related; boundary=" + boundary + "",
-              },
-              body: multipartRequestBody,
-            });
-            request.execute(function (file) {
-              console.log(file);
-            });
-          });
- */
           recordedChunks = [];
         });
 
         recordBtn.addEventListener("click", function () {
-          mediaRecorder.start(500);
+          mediaRecorder.start();
         });
       };
 
