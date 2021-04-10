@@ -34,15 +34,17 @@ const handleSuccess = function (stream) {
     var form = new FormData();
     form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
     form.append('file', file);
-    var xhr = new XMLHttpRequest();
-    xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-    xhr.responseType = 'json';
-    xhr.onload = () => {
-        console.log(xhr.response.id); // Retrieve uploaded file ID.
-    };
-    xhr.send(form);
 
+    fetch(`https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id`, {
+      method: 'POST',
+      headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
+      body: form
+    }).then((res) => {
+      return res.json();
+    }).then((val) => {
+      console.log(val);
+    })
+    
     recordedChunks = [];
   });
 

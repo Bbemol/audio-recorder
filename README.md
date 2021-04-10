@@ -14,7 +14,7 @@ This is a simple audio recorder. It does 3 things:
 
 ## Work in progress
 - [ ] Upload to a specific google drive directory
-- [ ] Switch from XML request to fetch
+- [X] Switch from XML request to fetch
 - [ ] Publish on heroku
 - [ ] Switch from Vanilla to ReactJS
 - [ ] Add rename file functionnality
