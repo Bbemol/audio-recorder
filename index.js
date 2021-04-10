@@ -31,13 +31,32 @@ const handleSuccess = function (stream) {
     };
 
     var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+    var headers = { 'Authorization': 'Bearer ' + accessToken };
+
+    // create folder if doesn't exist
+    /* var fileMetadata = {
+      'name': 'Invoices',
+      'mimeType': 'application/vnd.google-apps.folder'
+    };
+    var formFolder = new FormData();
+    formFolder.append('metadata', new Blob([JSON.stringify(fileMetadata)], {type: 'application/json'}))
+    fetch(`https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id`, {
+      method: 'POST',
+      headers: new Headers(headers),
+      body: formFolder
+    }).then((res) => {
+      return res.json()
+    }).then(val => {
+      console.log(val)
+    }) */
+
     var form = new FormData();
     form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
     form.append('file', file);
 
     fetch(`https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id`, {
       method: 'POST',
-      headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
+      headers: new Headers(headers),
       body: form
     }).then((res) => {
       return res.json();
