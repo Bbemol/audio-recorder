@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Audio recorder</title>
     <script src="https://apis.google.com/js/api.js"></script>
+    <link rel="stylesheet" href="./style.css">
   </head>
-  <body>
-    <audio id="player" controls></audio>
-    <button id="record">Record</button>
-    <button id="stop">Stop</button>
-    <a id="download">Download audio</a>
+  <body class="">
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-4">
+      <audio id="player" class="m-4" controls></audio>
+      <button id="record" class="bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-sm">Record</button>
+      <button id="stop" class="bg-gray-400 hover:bg-gray-600 text-white p-4 rounded-sm">Stop</button>
+      <a id="download">Download audio</a>
+    </div>
     
     <p>Drive API Quickstart</p>
     

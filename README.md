@@ -13,6 +13,7 @@ This is a simple audio recorder. It does 3 things:
 
 
 ## Work in progress
+- [X] Add TailwindCSS
 - [ ] Upload to a specific google drive directory
 - [X] Switch from XML request to fetch
 - [ ] Publish on heroku
