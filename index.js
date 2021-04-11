@@ -28,9 +28,9 @@ const handleSuccess = function (stream) {
 
     var file = new Blob(recordedChunks, {type: 'audio/webm'});
     var metadata = {
-        'name': 'aaaaaaa.wav', // Filename at Google Drive
+        'name': 'newRecord.wav', // Filename at Google Drive
         'mimeType': 'audio/webm', // mimeType at Google Drive
-        'parents': '', // Folder ID at Google Drive
+        'parents': ['1YO14HFMAwNKGm92fmmGMq9mFwg8fKUf3'], // Folder ID at Google Drive
     };
 
     var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
