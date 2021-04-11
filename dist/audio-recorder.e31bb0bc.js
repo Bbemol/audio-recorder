@@ -149,9 +149,8 @@ var handleSuccess = function handleSuccess(stream) {
     var metadata = {
       'name': 'newRecord.wav',
       // Filename at Google Drive
-      'mimeType': 'audio/webm',
-      // mimeType at Google Drive
-      'parents': ['1YO14HFMAwNKGm92fmmGMq9mFwg8fKUf3'] // Folder ID at Google Drive
+      'mimeType': 'audio/webm' // mimeType at Google Drive
+      // 'parents': ['1YO14HFMAwNKGm92fmmGMq9mFwg8fKUf3'], // Folder ID at Google Drive
 
     };
     var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
@@ -231,7 +230,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58585" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49601" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
