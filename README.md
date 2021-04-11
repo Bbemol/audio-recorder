@@ -16,7 +16,7 @@ This is a simple audio recorder. It does 3 things:
 - [X] Add TailwindCSS
 - [ ] Upload to a specific google drive directory
 - [X] Switch from XML request to fetch
-- [ ] Publish on heroku
+- [X] Publish on heroku
 - [ ] Switch from Vanilla to ReactJS or Svelte
 - [ ] Add rename file functionnality
 - [ ] Audio visualization
