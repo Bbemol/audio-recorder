@@ -8,21 +8,29 @@
     <script src="https://apis.google.com/js/api.js"></script>
     <link rel="stylesheet" href="./style.css">
   </head>
-  <body class="">
-    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-4">
-      <audio id="player" class="m-4" controls></audio>
-      <button id="record" class="bg-purple-700 hover:bg-purple-900 text-white p-4 rounded-sm">Record</button>
-      <button id="stop" class="bg-gray-400 hover:bg-gray-600 text-white p-4 rounded-sm">Stop</button>
-      <a id="download">Download audio</a>
+  <body class="text-gray-50 bg-gray-900">
+    <div class="container p-4 mx-auto max-w-sm">
+      <h1>Audio recorder</h1>
+      <div class="container mx-auto bg-white text-gray-900 rounded-xl shadow-md p-4 m-4">
+        <audio id="player" class="mb-4" controls></audio>
+        <div class="grid">
+          <button id="record" class="btn btn--record">Record</button>
+          <button id="stop" disabled class="btn btn--grey">Stop</button>
+        </div>
+        <!-- <a class="block" id="download">Download audio</a> -->
+      </div>
+      <div class="container mt-2 text-gray-50">
+        <h2>Connect to Google Drive</h2>
+        <button id="authorize_button" class="btn btn--primary" style="display: none">Authorize</button>
+        
+        <pre id="content" class="text-xs mb-4"></pre>
+        <button id="signout_button" class="btn btn--primary" style="display: none">Sign Out</button>
+
+      </div>
     </div>
     
-    <p>Drive API Quickstart</p>
     
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" style="display: none">Authorize</button>
-    <button id="signout_button" style="display: none">Sign Out</button>
-    
-    <pre id="content" style="white-space: pre-wrap"></pre>
     <script src="connect.js" type="text/javascript"></script>
     <script src="index.js"></script>
     <!-- <script

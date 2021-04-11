@@ -15,12 +15,15 @@ const handleSuccess = function (stream) {
     }
   });
   stopBtn.addEventListener("click", function () {
+    recordBtn.disabled = false;
+    stopBtn.disabled = true;
+
     mediaRecorder.stop();
   });
 
   mediaRecorder.addEventListener("stop", function () {
-    downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
-    downloadLink.download = "acetest.wav";
+/*     downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
+    downloadLink.download = "acetest.wav"; */
     player.src = URL.createObjectURL(new Blob(recordedChunks));
 
     var file = new Blob(recordedChunks, {type: 'audio/webm'});
@@ -68,6 +71,8 @@ const handleSuccess = function (stream) {
   });
 
   recordBtn.addEventListener("click", function () {
+    recordBtn.disabled = true;
+    stopBtn.disabled = false;
     mediaRecorder.start();
   });
 };
